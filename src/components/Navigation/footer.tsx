@@ -28,7 +28,7 @@ function MyFooter() {
         <FooterLinkWrapper to="/Faq">FAQ</FooterLinkWrapper>
         <FooterLinkWrapper to="/about">Privacy Policy</FooterLinkWrapper>
         <FooterLinkWrapper to="/about">Terms and Conditions</FooterLinkWrapper>
-        <Footer.Link href="#" className="hover:text-blue-600 dark:hover:text-blue-400">GOV.in</Footer.Link>
+        <Footer.Link href="https://dsel.education.gov.in/" className="hover:text-blue-600 dark:hover:text-blue-400">GOV.in</Footer.Link>
       </Footer.LinkGroup>
     </Footer>
   );

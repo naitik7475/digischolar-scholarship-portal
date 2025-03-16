@@ -29,8 +29,8 @@ export function ContactModal({ openModal, onCloseModal }: ContactModalProps) {
               <HiPhone className="text-blue-500" size={24} />
               <div>
                 <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Phone</p>
-                <p className="text-base font-semibold text-gray-800 dark:text-white">+1 123-456-7890</p>
-                <p className="text-base font-semibold text-gray-800 dark:text-white">+1 987-654-3210</p>
+                <p className="text-base font-semibold text-gray-800 dark:text-white">+91-1123782698</p>
+                <p className="text-base font-semibold text-gray-800 dark:text-white">+91-1123782387</p>
               </div>
             </div>
 
@@ -39,8 +39,8 @@ export function ContactModal({ openModal, onCloseModal }: ContactModalProps) {
               <HiMail className="text-blue-500" size={24} />
               <div>
                 <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Email</p>
-                <p className="text-base font-semibold text-gray-800 dark:text-white">contact@example.com</p>
-                <p className="text-base font-semibold text-gray-800 dark:text-white">support@example.com</p>
+                <p className="text-base font-semibold text-gray-800 dark:text-white">contact@digischolar.gov.in</p>
+                <p className="text-base font-semibold text-gray-800 dark:text-white">support@digischolar.gov.in</p>
               </div>
             </div>
 
@@ -50,10 +50,10 @@ export function ContactModal({ openModal, onCloseModal }: ContactModalProps) {
               <div>
                 <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Address</p>
                 <p className="text-base font-semibold text-gray-800 dark:text-white">
-                  123 Business Ave, Suite 100
+                302-C, Shastri Bhawan, 
                 </p>
                 <p className="text-base font-semibold text-gray-800 dark:text-white">
-                  Cityville, Country 45678
+                New Delhi, India - 110001
                 </p>
               </div>
             </div>
