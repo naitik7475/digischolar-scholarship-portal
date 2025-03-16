@@ -1,5 +1,5 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import MyNavbar from './components/Navigation/Navbar';
 import HeroSection from './pages/Hero';
 import MyFooter from './components/Navigation/footer';
@@ -15,12 +15,23 @@ import PMSSSDocumentUpload from './pages/upload';
 import ApplicationConfirmation from './pages/applicationNum';
 import AboutPage from './pages/about';
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
 function App() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   return (
     <Router>
+      <ScrollToTop /> {/* This ensures scrolling to top on route change */}
       <div className="min-h-screen dark:bg-gray-900">
         <MyNavbar 
           onLoginClick={() => setIsLoginModalOpen(true)}
