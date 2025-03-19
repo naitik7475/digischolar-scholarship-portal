@@ -39,8 +39,8 @@ export function ContactModal({ openModal, onCloseModal }: ContactModalProps) {
               <HiMail className="text-blue-500" size={24} />
               <div>
                 <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Email</p>
-                <p className="text-base font-semibold text-gray-800 dark:text-white">contact@digischolar.gov.in</p>
-                <p className="text-base font-semibold text-gray-800 dark:text-white">support@digischolar.gov.in</p>
+                <p className="text-base font-semibold text-gray-800 dark:text-white">contact@digischolar.ac.in</p>
+                <p className="text-base font-semibold text-gray-800 dark:text-white">support@digischolar.ac.in</p>
               </div>
             </div>
 

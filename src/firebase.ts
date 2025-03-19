@@ -5,20 +5,20 @@ import { doc, getFirestore, setDoc } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBhxm9igIyBCbuuA7MzDMdgrIsEdWI-EyA",
-  authDomain: "digischolar-b7138.firebaseapp.com",
-  projectId: "digischolar-b7138",
-  storageBucket: "digischolar-b7138.firebasestorage.app",
-  messagingSenderId: "897820565743",
-  appId: "1:897820565743:web:a74398241dbaf483f63b1a",
-  measurementId: "G-WH6ZZF3MQX"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
-const app = initializeApp(firebaseConfig);  // Initialize Firebase app
+const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-export { app }; // Export the Firebase app instance
+export { app };
 
 export interface UserData {
   aadhaar: string;
@@ -29,6 +29,8 @@ export interface UserData {
   school: string;
   pmsssId: string;
   status: string;
+  gender: string; // Add gender
+  dob: string;     // Add Date of Birth
 }
 
 export const saveUserData = async (data: UserData): Promise<void> => {
@@ -42,9 +44,10 @@ export const saveUserData = async (data: UserData): Promise<void> => {
     // Now it's safe to delete
     delete dataWithoutPmsssId.pmsssId;
 
-    const dataWithStatus = { ...dataWithoutPmsssId, status: "Application Submitted" };
+    // No need to explicitly set status here, it's in the initial formData
+    // const dataWithStatus = { ...dataWithoutPmsssId, status: "Application Submitted" };
 
-    await setDoc(docRef, dataWithStatus);
+    await setDoc(docRef, dataWithoutPmsssId); // Save all data, including dob
     console.log("Document written with ID: ", pmsssId);
   } catch (e) {
     console.error("Error adding document: ", e);

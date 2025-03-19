@@ -9,19 +9,20 @@ function PMSSSRegister() {
   const [district, setDistrict] = useState("");
   const [school, setSchool] = useState("");
   const [schools, setSchools] = useState<string[]>([]);
-  const [gender, setGender] = useState("");  // New state for gender
+  const [gender, setGender] = useState("");
+   // State for Date of Birth
 
   const [formData, setFormData] = useState({
     aadhaar: "",
     name: "",
     mobile: "",
     email: "",
-  
     district: "",
     school: "",
     pmsssId: "",
-    status: "Application Submitted", // Initialize status here!  This is the fix!
-    gender: "", // Initialize gender
+    status: "Application Submitted",
+    gender: "",
+    dob: "", // Initialize dob
   });
 
   const [errors, setErrors] = useState({
@@ -31,7 +32,8 @@ function PMSSSRegister() {
     email: "",
     district: "",
     school: "",
-    gender: "", // Error state for gender
+    gender: "",
+    dob: "", // Error state for dob
   });
 
   const districtToSchools: Record<string, string[]> = {
@@ -65,12 +67,14 @@ function PMSSSRegister() {
     setFormData((prev) => ({ ...prev, school: selectedSchool }));
   };
 
-
   const handleGenderChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedGender = event.target.value;
     setGender(selectedGender);
     setFormData((prev) => ({ ...prev, gender: selectedGender }));
   };
+
+    
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -101,6 +105,12 @@ function PMSSSRegister() {
           name: value.trim() !== "" ? "" : "Name cannot be empty",
         }));
         break;
+        case "dob":
+          setErrors((prev) => ({
+            ...prev,
+            dob: value ? "" : "Date of Birth is required", // Keep basic validation here too
+        }));
+        break;
       default:
         break;
     }
@@ -116,36 +126,29 @@ function PMSSSRegister() {
       email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email) ? "" : "Invalid email address",
       district: formData.district ? "" : "District is required",
       school: formData.school ? "" : "School is required",
-      gender: formData.gender ? "" : "Gender is required", // Validate gender
+      gender: formData.gender ? "" : "Gender is required",
+      dob: formData.dob ? "" : "Date of Birth is required", // Validate dob
     };
 
     setErrors(newErrors);
 
-    console.log("newErrors:", newErrors); // **CRITICAL: Inspect the contents of newErrors**
+    console.log("newErrors:", newErrors);
 
     if (Object.values(newErrors).every((error) => error === "")) {
       try {
-        // Generate PMSSS ID
         const pmsssRegistrationId = generatePMSSSRegistrationId();
-
-        // Update formData with the generated PMSSS ID
-        // const updatedFormData = { ...formData, pmsssId: pmsssRegistrationId };
         const updatedFormData = {
           ...formData,
           pmsssId: pmsssRegistrationId,
         };
 
-        // Save the updated formData to Firebase
         await saveUserData(updatedFormData);
-
-        // Alert the user with the generated ID
         alert("Form submitted successfully! Your Registration ID is: " + pmsssRegistrationId);
-
-        console.log("Navigating to upload page"); // **Check if this is reached!**
-        navigate(`/upload/${pmsssRegistrationId}`); // Use the correct route
+        console.log("Navigating to upload page");
+        navigate(`/upload/${pmsssRegistrationId}`);
       } catch (error) {
         console.error("Error submitting the form:", error);
-        console.log("Firebase Error:", error); // **Inspect the Firebase error!**
+        console.log("Firebase Error:", error);
         alert("Error submitting the form. Please try again.");
       }
     } else {
@@ -320,7 +323,24 @@ function PMSSSRegister() {
                   <p className="mt-1 text-sm text-red-500">{errors.gender}</p>
                 )}
               </div>
-
+                {/* Date of Birth */}
+              <div className="mb-4">
+                <Label htmlFor="dob" className="mb-2 block text-sm font-medium">
+                  Date of Birth
+                </Label>
+                <TextInput
+                  id="dob"
+                  type="date" // Use type="date" for a date picker
+                  placeholder="Enter your date of birth"
+                  value={formData.dob}
+                  onChange={handleInputChange} // Use handleInputChange now
+                  required
+                  className="dark:text-gray-200"
+                />
+                {errors.dob && (
+                  <p className="mt-1 text-sm text-red-500">{errors.dob}</p>
+                )}
+              </div>
 
               {/* Submit Button */}
               <Button type="submit" className="mt-4 w-full">

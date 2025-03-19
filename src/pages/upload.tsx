@@ -1,10 +1,10 @@
 import { Button, FileInput, Label } from "flowbite-react";
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom"; // Import useParams for extracting pmsssId
-import { saveApplicationData, uploadFile } from "../firebase"; // Import saveApplicationData
+import { useNavigate, useParams } from "react-router-dom";
+import { saveApplicationData, uploadFile } from "../firebase";
 
 function PMSSSDocumentUpload() {
-  const { pmsssId } = useParams<{ pmsssId: string }>(); // Extract pmsssId from URL
+  const { pmsssId } = useParams<{ pmsssId: string }>();
   const [files, setFiles] = useState<Record<string, File | null>>({
     aadhaar: null,
     domicile: null,
@@ -12,7 +12,6 @@ function PMSSSDocumentUpload() {
     income: null,
     other: null,
   });
-
   const [filePreviews, setFilePreviews] = useState<Record<string, string>>({
     aadhaar: "",
     domicile: "",
@@ -20,7 +19,6 @@ function PMSSSDocumentUpload() {
     income: "",
     other: "",
   });
-
   const [errors, setErrors] = useState<Record<string, string>>({
     aadhaar: "",
     domicile: "",
@@ -28,14 +26,13 @@ function PMSSSDocumentUpload() {
     income: "",
     other: "",
   });
-
   const [statusMessage, setStatusMessage] = useState<string>("");
-  const navigate = useNavigate(); // Initialize useNavigate hook for routing
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, field: string) => {
     const file = e.target.files?.[0] || null;
     if (file) {
-      // Validate file size (max 2MB)
       if (file.size > 2 * 1024 * 1024) {
         setErrors((prev) => ({
           ...prev,
@@ -47,7 +44,6 @@ function PMSSSDocumentUpload() {
         setFiles((prev) => ({ ...prev, [field]: file }));
         setErrors((prev) => ({ ...prev, [field]: "" }));
 
-        // Preview file
         const reader = new FileReader();
         reader.onloadend = () => {
           setFilePreviews((prev) => ({
@@ -62,50 +58,51 @@ function PMSSSDocumentUpload() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setStatusMessage("");
+    setIsSubmitting(true);
 
-    // Check if all required files are uploaded
-    const missingFiles = Object.keys(files).filter((key) => !files[key] && key !== 'other'); // 'other' is optional
+    try {
+      const missingFiles = Object.keys(files).filter(
+        (key) => !files[key] && key !== "other"
+      );
 
-    if (missingFiles.length > 0) {
-      setStatusMessage("Please upload all required documents.");
-    } else {
-      setStatusMessage("Documents submitted successfully!");
+      if (missingFiles.length > 0) {
+        setStatusMessage("Please upload all required documents.");
+        return;
+      }
 
-      // Use pmsssId from URL instead of generating a new one
       if (!pmsssId) {
         setStatusMessage("PMSSS ID is missing. Please try again.");
         return;
       }
 
-      const uploadedFileURLs: Record<string, string> = {}; // To store file URLs
+      const uploadedFileURLs: Record<string, string> = {};
 
-      // Upload the files to Firebase Storage
+      // Upload files sequentially
       for (const field in files) {
         const file = files[field];
         if (file) {
-          const fileURL = await uploadFile(file, pmsssId, field); // Use pmsssId as the user identifier
+          const fileURL = await uploadFile(file, pmsssId, field);
           if (fileURL) {
-            uploadedFileURLs[field] = fileURL; // Store the URL
-            console.log(`${field} uploaded successfully at:`, fileURL);
+            uploadedFileURLs[field] = fileURL;
           } else {
             setStatusMessage(`Error uploading ${field}. Please try again.`);
-            return; // Stop submission if any upload fails
+            return;
           }
         }
       }
 
-      // Save application data to Firestore, including pmsssId and file URLs
       await saveApplicationData(pmsssId, pmsssId, uploadedFileURLs);
-
-      // Navigate to the application confirmation route with the pmsssId
-      console.log("Navigating to application confirmation with pmsssId:", pmsssId);
       navigate(`/application-confirmation/${pmsssId}`);
+    } catch (error) {
+      setStatusMessage("An error occurred during submission. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-[url('https://images.unsplash.com/photo-1680084521816-cc1ad0433ceb')] bg-cover bg-center">
-      {/* Dark overlay with blur effect */}
       <div className="flex size-full items-center justify-center bg-gray-900/80 py-7 backdrop-blur-sm">
         <div className="w-full max-w-2xl rounded-lg bg-white p-8 py-5 shadow-lg dark:bg-gray-800 dark:text-white">
           <div className="py-5">
@@ -116,7 +113,6 @@ function PMSSSDocumentUpload() {
               Please upload all required documents. Ensure files are in PDF format and under 2MB.
             </p>
 
-            {/* Display Status Message */}
             {statusMessage && (
               <p className="mb-4 text-center text-lg font-semibold text-gray-700 dark:text-gray-300">
                 {statusMessage}
@@ -124,6 +120,7 @@ function PMSSSDocumentUpload() {
             )}
 
             <form onSubmit={handleSubmit}>
+              {/* File upload sections remain the same */}
               {/* Aadhaar Upload */}
               <div className="mb-6">
                 <Label htmlFor="aadhaar" className="mb-2 block text-sm font-medium">
@@ -233,9 +230,12 @@ function PMSSSDocumentUpload() {
                 )}
               </div>
 
-              {/* Submit Button */}
-              <Button type="submit" className="mt-4 w-full">
-                Submit Documents
+              <Button
+                type="submit"
+                className="mt-4 w-full"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Submitting Documents..." : "Submit Documents"}
               </Button>
             </form>
           </div>

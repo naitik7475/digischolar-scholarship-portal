@@ -16,7 +16,7 @@ const HowToApply = () => {
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {/* Step 1 */}
-          <Card className="relative overflow-hidden bg-white transition-transform hover:scale-105 dark:border-gray-700 dark:bg-gray-800">
+          <Card className="relative flex flex-col overflow-hidden bg-white transition-transform hover:scale-105 dark:border-gray-700 dark:bg-gray-800">
             <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-green-400 to-blue-500"></div>
             <div className="mb-4 flex items-center space-x-3">
               <div className="rounded-lg bg-gradient-to-r from-green-400 to-blue-500 p-2 text-white">
@@ -34,15 +34,18 @@ const HowToApply = () => {
               <li>Passed Class 12th or equivalent</li>
               <li>Family income under ₹8 lakh</li>
             </ul>
-            <img
-              src="/images/eligibility.png"
-              alt="Eligibility"
-              className="mt-4 rounded-lg dark:brightness-90"
-            />
+            {/* Image container with top alignment */}
+            <div className="mt-auto flex justify-center pt-4">
+              <img
+                src="/images/eligibility.png"
+                alt="Eligibility"
+                className="rounded-lg dark:brightness-90"
+              />
+            </div>
           </Card>
 
           {/* Step 2 */}
-          <Card className="relative overflow-hidden bg-white transition-transform hover:scale-105 dark:border-gray-700 dark:bg-gray-800">
+          <Card className="relative flex flex-col overflow-hidden bg-white transition-transform hover:scale-105 dark:border-gray-700 dark:bg-gray-800">
             <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-blue-400 to-purple-500"></div>
             <div className="mb-4 flex items-center space-x-3">
               <div className="rounded-lg bg-gradient-to-r from-blue-400 to-purple-500 p-2 text-white">
@@ -60,15 +63,18 @@ const HowToApply = () => {
               <li>Contact information</li>
               <li>Educational qualifications</li>
             </ul>
-            <img
-              src="/images/register.png"
-              alt="Register Online"
-              className="mt-4 rounded-lg dark:brightness-90"
-            />
+            {/* Image container with top alignment */}
+            <div className="mt-auto flex justify-center pt-4">
+              <img
+                src="/images/register.png"
+                alt="Register Online"
+                className="rounded-lg dark:brightness-90"
+              />
+            </div>
           </Card>
 
           {/* Step 3 */}
-          <Card className="relative overflow-hidden bg-white transition-transform hover:scale-105 dark:border-gray-700 dark:bg-gray-800">
+          <Card className="relative flex flex-col overflow-hidden bg-white transition-transform hover:scale-105 dark:border-gray-700 dark:bg-gray-800">
             <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-purple-400 to-pink-500"></div>
             <div className="mb-4 flex items-center space-x-3">
               <div className="rounded-lg bg-gradient-to-r from-purple-400 to-pink-500 p-2 text-white">
@@ -86,15 +92,18 @@ const HowToApply = () => {
               <li>Income certificate</li>
               <li>Domicile certificate</li>
             </ul>
-            <img
-              src="/images/upload-documents.png"
-              alt="Upload Documents"
-              className="mt-4 rounded-lg dark:brightness-90"
-            />
+            {/* Image container with top alignment */}
+            <div className="mt-auto flex justify-center pt-4">
+              <img
+                src="/images/upload-documents.png"
+                alt="Upload Documents"
+                className="rounded-lg dark:brightness-90"
+              />
+            </div>
           </Card>
 
           {/* Step 4 */}
-          <Card className="relative overflow-hidden bg-white transition-transform hover:scale-105 dark:border-gray-700 dark:bg-gray-800">
+          <Card className="relative flex flex-col overflow-hidden bg-white transition-transform hover:scale-105 dark:border-gray-700 dark:bg-gray-800">
             <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-pink-400 to-red-500"></div>
             <div className="mb-4 flex items-center space-x-3">
               <div className="rounded-lg bg-gradient-to-r from-pink-400 to-red-500 p-2 text-white">
@@ -112,15 +121,18 @@ const HowToApply = () => {
               <li>Verify documents</li>
               <li>Save application ID</li>
             </ul>
-            <img
-              src="/images/submit-application.png"
-              alt="Submit Application"
-              className="mt-4 rounded-lg dark:brightness-90"
-            />
+            {/* Image container with top alignment */}
+            <div className="mt-auto flex justify-center pt-4">
+              <img
+                src="/images/submit-application.png"
+                alt="Submit Application"
+                className="rounded-lg dark:brightness-90"
+              />
+            </div>
           </Card>
 
           {/* Step 5 */}
-          <Card className="relative overflow-hidden bg-white transition-transform hover:scale-105 dark:border-gray-700 dark:bg-gray-800">
+          <Card className="relative flex flex-col overflow-hidden bg-white transition-transform hover:scale-105 dark:border-gray-700 dark:bg-gray-800">
             <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-red-400 to-orange-500"></div>
             <div className="mb-4 flex items-center space-x-3">
               <div className="rounded-lg bg-gradient-to-r from-red-400 to-orange-500 p-2 text-white">
@@ -138,11 +150,14 @@ const HowToApply = () => {
               <li>Check approval status</li>
               <li>Receive updates</li>
             </ul>
-            <img
-              src="/images/track-status.png"
-              alt="Track Application Status"
-              className="mt-4 rounded-lg dark:brightness-90"
-            />
+            {/* Image container with top alignment */}
+            <div className="mt-auto flex justify-center pt-4">
+              <img
+                src="/images/track-status.png"
+                alt="Track Application Status"
+                className="rounded-lg dark:brightness-90"
+              />
+            </div>
           </Card>
         </div>
 
@@ -155,7 +170,7 @@ const HowToApply = () => {
             <iframe
               width="560"
               height="315"
-              src="https://www.youtube.com/embed/your-video-id"
+              src="https://www.youtube.com/embed/piOiY1d8VVM"
               title="PMSSS Application Process"
               className="w-full max-w-3xl rounded-xl border-4 border-transparent bg-gradient-to-r from-green-400/20 to-blue-500/20 p-1 shadow-xl"
               frameBorder="0"
