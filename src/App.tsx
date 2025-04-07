@@ -31,7 +31,7 @@ function App() {
 
   return (
     <Router>
-      <ScrollToTop /> {/* This ensures scrolling to top on route change */}
+      <ScrollToTop /> 
       <div className="min-h-screen dark:bg-gray-900">
         <MyNavbar 
           onLoginClick={() => setIsLoginModalOpen(true)}

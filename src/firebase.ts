@@ -1,4 +1,3 @@
-// src/firebase.ts
 
 import { initializeApp } from "firebase/app";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
@@ -29,8 +28,8 @@ export interface UserData {
   school: string;
   pmsssId: string;
   status: string;
-  gender: string; // Add gender
-  dob: string;     // Add Date of Birth
+  gender: string; 
+  dob: string;     
 }
 
 export const saveUserData = async (data: UserData): Promise<void> => {
@@ -38,16 +37,15 @@ export const saveUserData = async (data: UserData): Promise<void> => {
     const pmsssId = data.pmsssId;
     const docRef = doc(db, "users", pmsssId);
 
-    // Create a copy where pmsssId is optional
+   
     const dataWithoutPmsssId: Partial<UserData> = { ...data };
 
-    // Now it's safe to delete
+    
     delete dataWithoutPmsssId.pmsssId;
 
-    // No need to explicitly set status here, it's in the initial formData
-    // const dataWithStatus = { ...dataWithoutPmsssId, status: "Application Submitted" };
+    
 
-    await setDoc(docRef, dataWithoutPmsssId); // Save all data, including dob
+    await setDoc(docRef, dataWithoutPmsssId); 
     console.log("Document written with ID: ", pmsssId);
   } catch (e) {
     console.error("Error adding document: ", e);

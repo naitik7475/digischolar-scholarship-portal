@@ -1,14 +1,14 @@
-import { doc, getDoc, getFirestore } from 'firebase/firestore'; // Import Firestore functions
+import { doc, getDoc, getFirestore } from 'firebase/firestore'; 
 import { Button, Card } from "flowbite-react";
-import { useEffect, useState } from 'react'; // Import useState and useEffect
+import { useEffect, useState } from 'react'; 
 import { HiCheckCircle } from "react-icons/hi";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import { Link, useParams } from "react-router-dom";
 
-const db = getFirestore(); // Get Firestore instance
+const db = getFirestore(); 
 
 export default function ApplicationConfirmation() {
-  const { pmsssId: pmsssIdFromURL } = useParams<{ pmsssId: string }>(); // Get pmsssId from URL
+  const { pmsssId: pmsssIdFromURL } = useParams<{ pmsssId: string }>(); 
   const [fetchedPmsssId, setFetchedPmsssId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -19,13 +19,13 @@ export default function ApplicationConfirmation() {
       setError(null);
       try {
         if (pmsssIdFromURL) {
-          // **Fetch based on userId (assuming you want to fetch document for "sample-user-id")**
-          const applicationDocRef = doc(db, 'applications', pmsssIdFromURL); // Use pmsssIdFromURL as document ID
+          
+          const applicationDocRef = doc(db, 'applications', pmsssIdFromURL); 
           const docSnap = await getDoc(applicationDocRef);
 
           if (docSnap.exists()) {
             const applicationData = docSnap.data();
-            // **Now, get the pmsssId from the fetched data**
+           
             setFetchedPmsssId(applicationData.pmsssId);
             console.log("ApplicationConfirmation - Fetched pmsssId from Firestore:", applicationData.pmsssId);
           } else {

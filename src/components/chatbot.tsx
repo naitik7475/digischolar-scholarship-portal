@@ -96,6 +96,7 @@ const ChatbotWithNavbar: React.FC = () => {
       </button>
 
       {isOpen && (
+        // eslint-disable-next-line tailwindcss/no-custom-classname
         <div className="animate-fade-in absolute bottom-full right-0 mb-4 w-80 rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800 sm:w-96">
           <div className="flex items-center justify-between rounded-t-lg bg-gradient-to-r from-green-400 to-blue-500 px-4 py-3 dark:border-gray-700">
             <div className="flex items-center space-x-3">

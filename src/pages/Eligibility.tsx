@@ -1,7 +1,7 @@
 //To be done by Khushu
 import { Button, Label, Radio } from "flowbite-react";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom"; 
 
 function EligibilityForm() {
   const [formState, setFormState] = useState({
@@ -13,8 +13,8 @@ function EligibilityForm() {
     age: "",
   });
 
-  const [eligibilityMessage, setEligibilityMessage] = useState<string | null>(null); // Holds the message to display
-  const navigate = useNavigate(); // Initialize navigate function
+  const [eligibilityMessage, setEligibilityMessage] = useState<string | null>(null); 
+  const navigate = useNavigate(); 
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -42,9 +42,9 @@ function EligibilityForm() {
     }
   };
 
-  // Redirect to the registration page
+  
   const handleRegisterClick = () => {
-    navigate("/register"); // Redirect to the /register page
+    navigate("/register"); 
   };
 
   return (

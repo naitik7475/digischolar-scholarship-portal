@@ -8,7 +8,7 @@ import {
   HiOutlineChatAlt2,
   HiOutlineMail,
 } from "react-icons/hi";
-import { Link } from "react-router-dom"; // Import Link
+import { Link } from "react-router-dom"; 
 
 function HeroSection() {
   const announcements = [

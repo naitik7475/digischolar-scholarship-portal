@@ -8,7 +8,7 @@ import {
   HiDocument,
   HiMailOpen,
 } from "react-icons/hi";
-import { app } from "../firebase"; // Import the Firebase app instance
+import { app } from "../firebase"; 
 
 declare module "flowbite-react" {
   interface TimelineProps extends React.HTMLAttributes<HTMLElement> {
@@ -23,7 +23,7 @@ declare module "flowbite-react" {
 export default function CheckStatusPage() {
   const [applicationNumber, setApplicationNumber] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [currentStatus, setCurrentStatus] = useState<string | null>(null);  // Can be null initially
+  const [currentStatus, setCurrentStatus] = useState<string | null>(null); 
   const [statusStages, setStatusStages] = useState([
     {
       title: "Application Submitted Successfully",
@@ -57,14 +57,14 @@ export default function CheckStatusPage() {
   const handleViewStatus = async () => {
     if (!applicationNumber.trim()) {
       setErrorMessage("Please enter a valid application number.");
-      setCurrentStatus(null); // Clear the current status
+      setCurrentStatus(null);
       return;
     }
 
-    // Validate the application number format (e.g., PMSSS-1234567890)
+    
     if (!/^PMSSS-\d{10}$/.test(applicationNumber)) {
       setErrorMessage("Invalid application number format. Please enter PMSSS- followed by 10 digits.");
-      setCurrentStatus(null); // Clear the current status
+      setCurrentStatus(null); 
       return;
     }
 
@@ -78,19 +78,19 @@ export default function CheckStatusPage() {
 
       if (docSnap.exists()) {
         const data = docSnap.data();
-        setCurrentStatus(data.status || "Application Submitted"); // Default to "Application Submitted" if status is missing
+        setCurrentStatus(data.status || "Application Submitted"); 
       } else {
         setErrorMessage("Application number not found.");
-        setCurrentStatus(null); // Clear the current status
+        setCurrentStatus(null); 
       }
     } catch (error) {
       console.error("Error fetching status:", error);
       setErrorMessage("Failed to retrieve status. Please try again.");
-      setCurrentStatus(null); // Clear the current status
+      setCurrentStatus(null); 
     }
   };
 
-    // Update statusStages based on the currentStatus
+    
     useEffect(() => {
         if (currentStatus) {
             setStatusStages(prevStages =>
@@ -100,7 +100,7 @@ export default function CheckStatusPage() {
                 }))
             );
         } else {
-            // Reset statusStages if currentStatus is null
+            
             setStatusStages(prevStages =>
                 prevStages.map(stage => ({ ...stage, active: false }))
             );

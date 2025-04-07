@@ -3,7 +3,7 @@
 import { Button, Label, Select, TextInput } from "flowbite-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { saveUserData } from "../firebase"; // Ensure this import is correct
+import { saveUserData } from "../firebase"; 
 
 function PMSSSRegister() {
   const [district, setDistrict] = useState("");
@@ -22,7 +22,7 @@ function PMSSSRegister() {
     pmsssId: "",
     status: "Application Submitted",
     gender: "",
-    dob: "", // Initialize dob
+    dob: "", 
   });
 
   const [errors, setErrors] = useState({
@@ -33,7 +33,7 @@ function PMSSSRegister() {
     district: "",
     school: "",
     gender: "",
-    dob: "", // Error state for dob
+    dob: "", 
   });
 
   const districtToSchools: Record<string, string[]> = {
@@ -48,9 +48,9 @@ function PMSSSRegister() {
 
   const navigate = useNavigate();
 
-  // Function to generate a random 10-digit PMSSS ID
+  
   const generatePMSSSRegistrationId = () => {
-    const randomNumber = Math.floor(1000000000 + Math.random() * 9000000000); // Generates a 10-digit number
+    const randomNumber = Math.floor(1000000000 + Math.random() * 9000000000); 
     return `PMSSS-${randomNumber}`;
   };
 
@@ -108,7 +108,7 @@ function PMSSSRegister() {
         case "dob":
           setErrors((prev) => ({
             ...prev,
-            dob: value ? "" : "Date of Birth is required", // Keep basic validation here too
+            dob: value ? "" : "Date of Birth is required", 
         }));
         break;
       default:
@@ -127,7 +127,7 @@ function PMSSSRegister() {
       district: formData.district ? "" : "District is required",
       school: formData.school ? "" : "School is required",
       gender: formData.gender ? "" : "Gender is required",
-      dob: formData.dob ? "" : "Date of Birth is required", // Validate dob
+      dob: formData.dob ? "" : "Date of Birth is required", 
     };
 
     setErrors(newErrors);
@@ -330,10 +330,10 @@ function PMSSSRegister() {
                 </Label>
                 <TextInput
                   id="dob"
-                  type="date" // Use type="date" for a date picker
+                  type="date" 
                   placeholder="Enter your date of birth"
                   value={formData.dob}
-                  onChange={handleInputChange} // Use handleInputChange now
+                  onChange={handleInputChange} 
                   required
                   className="dark:text-gray-200"
                 />
